@@ -17,8 +17,10 @@ const sendEmail = async (to, messageContent) => {
       to: to,
       subject: "New Message from SharkTank-Lite  APP",
       html: `
-            <h3>You have received a new message from Nodemailer APP</h3>
+            <h3>You have received a new message from Sharktank Lite</h3>
             <p>${messageContent}</p>
+            <p>Regards</p>
+            <p>Sharktank Lite</p>
             `,
     };
     //send the email

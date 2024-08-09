@@ -78,7 +78,7 @@ const admin_controller = {
   }),
   //approve-shark
   approve_shark: asyncHandler(async (req, res) => {
-    const shark_id = req.body.id;
+    const shark_id = req.params.id;
     const found_shark = await Shark.findById(shark_id);
     found_shark.verified = true;
     found_shark.save();
@@ -87,7 +87,7 @@ const admin_controller = {
 
   //approve-entrepruner
   approve_entrepreneur: asyncHandler(async (req, res) => {
-    const entrepreneur_id = req.body.id;
+    const entrepreneur_id = req.params.id;
     const found_entrepreneur = await Entrepreneur.findById(entrepreneur_id);
     found_entrepreneur.verified = true;
     found_entrepreneur.save();

@@ -4,6 +4,8 @@ const dotenv = require("dotenv");
 const entrepreneur_Router = require("./routes/entrepreneur_router");
 const admin_Router = require("./routes/admin_router");
 const shark_Router = require("./routes/shark_router");
+const business_Router = require("./routes/business_router");
+const investments_Router = require("./routes/investments_router");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
@@ -22,5 +24,7 @@ app.use(express.json());
 app.use("/", entrepreneur_Router);
 app.use("/", admin_Router);
 app.use("/", shark_Router);
+app.use("/", business_Router);
+app.use("/", investments_Router);
 
 app.listen(PORT, () => console.log(`Server is running on ${PORT}`));

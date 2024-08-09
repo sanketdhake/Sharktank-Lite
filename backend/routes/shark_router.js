@@ -9,6 +9,8 @@ shark_Router.post(
   "/api/v1/shark/register",
   async (req, res, next) => {
     req.folderName = "Sharks_Business_Proof";
+    req.resource_type = "raw";
+    req.format = "zip";
     next();
   },
   upload.single("file"),
@@ -18,6 +20,13 @@ shark_Router.post("/api/v1/shark/login", shark_controller.login);
 shark_Router.post(
   "/api/v1/shark/update",
   isAuthenticated,
+  async (req, res, next) => {
+    req.folderName = "Sharks_Business_Proof";
+    req.resource_type = "raw";
+    req.format = "zip";
+    next();
+  },
+  upload.single("file"),
   shark_controller.update
 );
 shark_Router.delete(
