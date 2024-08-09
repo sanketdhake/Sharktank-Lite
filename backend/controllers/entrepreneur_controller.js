@@ -5,6 +5,9 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const { hash_passwordfn } = require("../utils/hash_password");
 const { verify_passwordfn } = require("../utils/verify_password");
+const Business = require("../models/business");
+const mongoose = require("mongoose");
+const ObjectID = mongoose.Types.ObjectId;
 //const { generateOTP } = require("../utils/otpGenerate");
 
 dotenv.config();
@@ -177,6 +180,17 @@ const entrepreneur_controller = {
     if (!req.user) {
       res.send({ message: "login session is expired , please login again" });
     }
+    const entrepreneur_businesses = await Business.find({
+      entrepreneur_id: new ObjectID(req.user),
+      entrepreneurs_equity: { $lt: 100 },
+    });
+    if (entrepreneur_businesses) {
+      throw new Error(
+        "You have Business registered on Sharktank Lite Platform. We will suggest you not to delete the account if your Business are enrolled in the system. Please contact Admins for further details."
+      );
+      res.send({ message: "invalid login Credentials" });
+    }
+
     await Entrepreneur.findByIdAndDelete(req.user);
     res.json({ message: "Your Entrepreneur account has been deleted" });
   }),

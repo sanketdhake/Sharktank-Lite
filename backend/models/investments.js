@@ -1,14 +1,15 @@
-import mongoose, { Schema } from "mongoose";
-import { schema } from "./entrepreneur";
-import { schema } from "./business";
+const mongoose = require("mongoose");
+
 const investmentSchema = new mongoose.Schema(
   {
-    shark_id: { type: schema.Types.ObjectId, ref: Shark },
-    business_id: { type: schema.Types.ObjectId, ref: Business },
+    shark_id: { type: mongoose.Schema.Types.ObjectId, ref: "Shark" },
+    business_id: { type: mongoose.Schema.Types.ObjectId, ref: "Business" },
     amount: { type: String, required: true },
     equity: { type: Number, required: true },
-    company_valuation: { type: Number, required: true },
     royalty: { type: Number, required: true },
+    royalty_duration: { type: Number, required: true },
+    accepted: { type: Boolean, required: true },
+    completed: { type: Boolean, required: true },
   },
   { timestamps: true }
 );

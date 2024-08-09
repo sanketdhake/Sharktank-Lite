@@ -1,9 +1,13 @@
 const asyncHandler = require("express-async-handler");
 const Shark = require("../models/shark");
+const Business = require("../models/business");
+const Investment = require("../models/investments");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { hash_passwordfn } = require("../utils/hash_password");
 const { verify_passwordfn } = require("../utils/verify_password");
+const mongoose = require("mongoose");
+const ObjectID = mongoose.Types.ObjectId;
 
 const shark_controller = {
   //register API
@@ -144,11 +148,16 @@ const shark_controller = {
       shark.networth = req.body.networth || shark.networth;
       shark.investment_capacity =
         req.body.investment_capacity || shark.investment_capacity;
+      if (req.file) {
+        shark.business_documents = req.file.path || shark.business_documents;
+      }
+
       shark.domain = req.body.domain || shark.domain;
       shark.state = req.body.state || shark.state;
       shark.city = req.body.city || shark.city;
       shark.address = req.body.address || shark.address;
       shark.pincode = req.body.pincode || shark.pincode;
+      shark.verified = false;
       const updated_shark = await shark.save();
       res.send({ message: "Shark details have been updated successfully" });
     } else {
@@ -160,14 +169,22 @@ const shark_controller = {
     if (!req.user) {
       res.send({ message: "login session is expired , please login again" });
     }
-    console.log(req.user);
+    const sharks_investments = await Investment.find({
+      shark_id: new ObjectID(req.user),
+      completed: true,
+    });
+    if (sharks_investments) {
+      throw new Error(
+        "You have made investments in the Business. Hence you can't delete this account. please contact with Admins for further details"
+      );
+      res.json({
+        message:
+          "You have made investments in the Business. Hence you can't delete this account. please contact with Admins for further details",
+      });
+    }
+
     const result = await Shark.findByIdAndDelete(req.user);
-    console.log(result);
     res.json({ message: "Your Shark account has been deleted" });
-  }),
-  //Invest
-  invest: asyncHandler(async (req, res) => {
-    const {} = req.body;
   }),
 };
 module.exports = shark_controller;

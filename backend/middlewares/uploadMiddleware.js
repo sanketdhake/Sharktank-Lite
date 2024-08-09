@@ -15,8 +15,8 @@ const storage = new CloudinaryStorage({
 
     return {
       folder: req.folderName || "default_folder",
-      resource_type: "raw", // For non-image files like zip
-      format: "zip",
+      resource_type: req.resource_type, // For non-image files like zip
+      format: req.format,
       public_id,
     };
   },
