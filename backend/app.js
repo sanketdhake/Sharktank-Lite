@@ -1,5 +1,5 @@
 const express = require("express");
-
+const cors = require("cors");
 const dotenv = require("dotenv");
 const entrepreneur_Router = require("./routes/entrepreneur_router");
 const admin_Router = require("./routes/admin_router");
@@ -17,6 +17,11 @@ mongoose
 const app = express();
 dotenv.config();
 const PORT = process.env.PORT;
+
+const corsOptions = {
+  origin: ["http://localhost:5173"],
+};
+app.use(cors(corsOptions));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
