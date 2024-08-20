@@ -186,5 +186,9 @@ const shark_controller = {
     const result = await Shark.findByIdAndDelete(req.user);
     res.json({ message: "Your Shark account has been deleted" });
   }),
+  list: asyncHandler(async (req, res) => {
+    const sharks = await Shark.find({ verified: false });
+    res.json(sharks);
+  }),
 };
 module.exports = shark_controller;

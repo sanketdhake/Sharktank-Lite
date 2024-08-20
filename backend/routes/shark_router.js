@@ -34,5 +34,5 @@ shark_Router.delete(
   isAuthenticated,
   shark_controller.delete
 );
-
+shark_Router.get("/api/v1/shark/list", shark_controller.list);
 module.exports = shark_Router;

@@ -6,6 +6,7 @@ import {
   FaChartPie,
 } from "react-icons/fa";
 import { IoIosStats } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
   return (
@@ -36,9 +37,11 @@ export default function HomePage() {
             <span className="text-white text-xl mt-4">Insightful Reports</span>
           </div>
         </div>
-        <button className="bg-white text-green-500 py-2 px-6 rounded-lg text-lg font-semibold">
-          Get Started
-        </button>
+        <Link to="/register">
+          <button className="bg-white text-green-500 py-2 px-6 rounded-lg text-lg font-semibold">
+            Get Started
+          </button>
+        </Link>
       </div>
 
       <div className="bg-white p-16 mx-8 mt-4 rounded-lg text-center">
@@ -108,9 +111,11 @@ export default function HomePage() {
         <h2 className="text-white text-xl mb-6">
           Join us now and start managing your Business like a pro!
         </h2>
-        <button className="bg-white text-blue-500 py-2 px-6 rounded-lg text-lg font-semibold">
-          Sign Up For Free
-        </button>
+        <Link to="/register">
+          <button className="bg-white text-blue-500 py-2 px-6 rounded-lg text-lg font-semibold">
+            Sign Up For Free
+          </button>
+        </Link>
       </div>
     </>
   );

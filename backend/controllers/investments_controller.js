@@ -20,20 +20,29 @@ const investments_controller = {
     const business_exist = await Business.findById(business_id);
 
     if (business_exist) {
-      const investment = Investment.create({
-        shark_id: req.user,
-        business_id,
-        amount,
-        equity,
-        royalty,
-        royalty_duration,
-        accepted: false,
-        completed: false,
-      });
-      res.json({
-        message:
-          "Your Investment request is successfully sent to the Business owner",
-      });
+      if (business_exist.entrepreneurs_equity < equity) {
+        throw new Error(
+          "Business dosent have enough equity for this investment"
+        );
+        res.json({
+          message: "Business dosent have enough equity for this investment",
+        });
+      } else {
+        const investment = Investment.create({
+          shark_id: req.user,
+          business_id,
+          amount,
+          equity,
+          royalty,
+          royalty_duration,
+          accepted: false,
+          completed: false,
+        });
+        res.json({
+          message:
+            "Your Investment request is successfully sent to the Business owner",
+        });
+      }
     } else {
       throw new Error("Business dosen't Exist");
       res.json({ message: "Business dosen't exist" });
