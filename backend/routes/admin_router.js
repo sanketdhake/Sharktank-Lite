@@ -13,5 +13,9 @@ admin_Router.post(
   "/api/v1/admin/approve-shark/:id",
   admin_controller.approve_shark
 );
+admin_Router.post(
+  "/api/v1/admin/approve-business/:id",
+  admin_controller.approve_business
+);
 
 module.exports = admin_Router;

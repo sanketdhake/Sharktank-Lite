@@ -33,5 +33,13 @@ business_Router.delete(
   isAuthenticated,
   business_controller.delete
 );
+business_Router.get(
+  "/api/v1/business/list_verified",
+  business_controller.list_verified
+);
+business_Router.get(
+  "/api/v1/business/list_not_verified",
+  business_controller.list_not_verified
+);
 
 module.exports = business_Router;

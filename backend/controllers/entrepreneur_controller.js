@@ -194,5 +194,9 @@ const entrepreneur_controller = {
     await Entrepreneur.findByIdAndDelete(req.user);
     res.json({ message: "Your Entrepreneur account has been deleted" });
   }),
+  list: asyncHandler(async (req, res) => {
+    const entrepreneurs = await Entrepreneur.find({ verified: false });
+    res.json(entrepreneurs);
+  }),
 };
 module.exports = entrepreneur_controller;

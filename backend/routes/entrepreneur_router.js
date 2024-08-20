@@ -21,5 +21,9 @@ entrepreneur_Router.delete(
   isAuthenticated,
   entrepreneur_controller.delete
 );
+entrepreneur_Router.get(
+  "/api/v1/entrepreneur/list",
+  entrepreneur_controller.list
+);
 
 module.exports = entrepreneur_Router;

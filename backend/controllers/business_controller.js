@@ -175,8 +175,6 @@ const business_controller = {
     }
   }),
   delete: asyncHandler(async (req, res) => {
-    console.log("received something");
-
     if (!req.user) {
       res.send({ message: "login session is expired , please login again" });
     }
@@ -195,6 +193,14 @@ const business_controller = {
     const result = await Business.findByIdAndDelete(business_id);
 
     res.json({ message: "Your Business account has been deleted" });
+  }),
+  list_verified: asyncHandler(async (req, res) => {
+    const businesses = await Business.find({ verified: true });
+    res.json(businesses);
+  }),
+  list_not_verified: asyncHandler(async (req, res) => {
+    const businesses = await Business.find({ verified: false });
+    res.json(businesses);
   }),
 };
 module.exports = business_controller;
