@@ -13,7 +13,7 @@ const authSlice = createSlice({
       state.userType = action.payload;
     },
     loginAction: (state, action) => {
-      state.userId = action.payload;
+      state.userId = action.payload.token;
     },
     logoutAction: (state, action) => {
       state.userId = null;

@@ -4,7 +4,7 @@ dotenv.config();
 
 const isAuthenticated = (req, res, next) => {
   const token = req.headers["authorization"];
-  //console.log(token);
+
   const verifytoken = jwt.verify(
     token,
     process.env.JWT,

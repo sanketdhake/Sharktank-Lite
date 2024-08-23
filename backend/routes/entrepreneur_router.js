@@ -25,5 +25,15 @@ entrepreneur_Router.get(
   "/api/v1/entrepreneur/list",
   entrepreneur_controller.list
 );
+entrepreneur_Router.get(
+  "/api/v1/entrepreneur/profile",
+  isAuthenticated,
+  entrepreneur_controller.profile
+);
+entrepreneur_Router.get(
+  "/api/v1/entrepreneur/list_business",
+  isAuthenticated,
+  entrepreneur_controller.list_business
+);
 
 module.exports = entrepreneur_Router;

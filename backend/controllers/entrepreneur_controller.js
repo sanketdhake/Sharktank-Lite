@@ -198,5 +198,15 @@ const entrepreneur_controller = {
     const entrepreneurs = await Entrepreneur.find({ verified: false });
     res.json(entrepreneurs);
   }),
+  profile: asyncHandler(async (req, res) => {
+    const entrepreneur = await Entrepreneur.findById(req.user);
+    res.json(entrepreneur);
+  }),
+  list_business: asyncHandler(async (req, res) => {
+    const businesses = await Business.find({
+      entrepreneur_id: new ObjectID(req.user),
+    });
+    res.json(businesses);
+  }),
 };
 module.exports = entrepreneur_controller;
