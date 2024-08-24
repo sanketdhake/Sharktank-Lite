@@ -3,6 +3,11 @@ const Business = require("../models/business");
 const Entrepreneur = require("../models/entrepreneur");
 const dotenv = require("dotenv");
 const { register } = require("./entrepreneur_controller");
+const business = require("../models/business");
+const Investments = require("../models/investments");
+const mongoose = require("mongoose");
+const entrepreneur = require("../models/entrepreneur");
+const ObjectId = mongoose.Types.ObjectId;
 dotenv.config();
 
 const business_controller = {
@@ -201,6 +206,32 @@ const business_controller = {
   list_not_verified: asyncHandler(async (req, res) => {
     const businesses = await Business.find({ verified: false });
     res.json(businesses);
+  }),
+
+  get_equity: asyncHandler(async (req, res) => {
+    if (!req.user) {
+      throw new Error("login session is expired , please login again");
+      res.send({ message: "login session is expired , please login again" });
+    }
+    var equityArray = [];
+    var sharkArray = [];
+    //const entrepreneur = Entrepreneur.findById(req.user);
+    const business_id = req.params.id;
+    const business = await Business.findById(business_id);
+    equityArray.push(business.entrepreneurs_equity);
+    sharkArray.push("You");
+
+    const investments = await Investments.find({
+      business_id: new ObjectId(business_id),
+    });
+    investments.forEach((investment) => {
+      equityArray.push(investment.equity);
+      sharkArray.push(investment.shark_name);
+    });
+    res.json({
+      Investmants_equity: equityArray,
+      Investors_names: sharkArray,
+    });
   }),
 };
 module.exports = business_controller;

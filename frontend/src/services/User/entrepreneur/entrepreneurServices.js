@@ -68,26 +68,11 @@ export const entrepreneurRegisterAPI = async ({
 
 export const EntrepreneurProfileAPI = async () => {
   const token = getUser();
+
   //console.log(`user token in services - ${token}`);
 
   const response = await axios.get(
     "http://localhost:3000/api/v1/entrepreneur/profile",
-    {
-      headers: {
-        Authorization: token,
-      },
-    }
-  );
-  //return the promice
-  return response.data;
-};
-
-export const EntrepreneurBusinessAPI = async () => {
-  const token = getUser();
-  //console.log(`user token - ${token}`);
-
-  const response = await axios.get(
-    "http://localhost:3000/api/v1/entrepreneur/list_business",
     {
       headers: {
         Authorization: token,

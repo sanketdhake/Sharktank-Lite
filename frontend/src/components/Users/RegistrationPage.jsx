@@ -14,7 +14,6 @@ import { setUserAction, loginAction } from "../../Redux/Slice/authSlice";
 //to be removed
 import { entrepreneurRegisterAPI } from "../../services/User/entrepreneur/entrepreneurServices";
 import { sharkRegistrationAPI } from "../../services/User/shark/sharkServices";
-import { adminRegistrationAPI } from "../../services/User/admin/adminServices";
 
 const validationSchema1 = Yup.object({
   name: Yup.string().required("Required"),
@@ -72,14 +71,6 @@ const validationSchema2 = Yup.object({
   address: Yup.string(),
   pincode: Yup.string(),
 });
-const validationSchema3 = Yup.object({
-  name: Yup.string().required("Required"),
-  email_id: Yup.string().email("Invalid email address").required("Required"),
-  password: Yup.string().required("Required"),
-  confirm_password: Yup.string()
-    .oneOf([Yup.ref("password"), null], "Passwords must match")
-    .required("Confirm Password is required"),
-});
 
 export default function RegistrationPage() {
   //configuration of dispatch to set the state
@@ -103,8 +94,6 @@ export default function RegistrationPage() {
     switch (userType) {
       case "Entrepreneur":
         return entrepreneurRegisterAPI;
-      case "Admin":
-        return adminRegistrationAPI;
       case "Shark":
         return sharkRegistrationAPI;
       default:
@@ -116,8 +105,6 @@ export default function RegistrationPage() {
     switch (userType) {
       case "Entrepreneur":
         return validationSchema1;
-      case "Admin":
-        return validationSchema3;
       case "Shark":
         return validationSchema2;
       default:
@@ -190,7 +177,7 @@ export default function RegistrationPage() {
     <div className="flex flex-col items-center min-h-screen bg-gray-100">
       <div className="p-6 bg-white rounded-lg shadow-lg max-w-4xl w-full mt-4">
         {/* Sub divs with logos and titles */}
-        <div className="flex justify-between mb-12">
+        <div className="flex justify-evenly mb-12">
           <div
             onClick={() => handleDivClick("Entrepreneur")}
             className={`flex flex-col items-center w-1/4 border border-gray-200 border-[1px] rounded-md p-4 transition-transform transform ${
@@ -212,17 +199,6 @@ export default function RegistrationPage() {
           >
             <FaUserTie className="text-4xl text-blue-600" />
             <h2 className="mt-2 text-xl">Shark</h2>
-          </div>
-          <div
-            onClick={() => handleDivClick("Admin")}
-            className={`flex flex-col items-center w-1/4 border border-gray-200 border-[1px] rounded-md p-4 transition-transform transform ${
-              selected === "Admin"
-                ? "scale-105 bg-gray-400"
-                : "hover:scale-105 hover:bg-gray-200"
-            }`}
-          >
-            <MdAdminPanelSettings className="text-4xl text-blue-600" />
-            <h2 className="mt-2 text-xl">Admin</h2>
           </div>
         </div>
 
@@ -253,97 +229,93 @@ export default function RegistrationPage() {
               )}
             </div>
 
-            {selected !== "Admin" && (
-              <>
-                <div>
-                  <label
-                    htmlFor="dob"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Date of Birth
-                  </label>
-                  <input
-                    id="dob"
-                    name="dob"
-                    type="date"
-                    {...formik.getFieldProps("dob")}
-                    className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  />
-                  {formik.touched.dob && formik.errors.dob && (
-                    <span className="text-xs text-red-500">
-                      {formik.errors.dob}
-                    </span>
-                  )}
-                </div>
+            <div>
+              <label
+                htmlFor="dob"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Date of Birth
+              </label>
+              <input
+                id="dob"
+                name="dob"
+                type="date"
+                {...formik.getFieldProps("dob")}
+                className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+              {formik.touched.dob && formik.errors.dob && (
+                <span className="text-xs text-red-500">
+                  {formik.errors.dob}
+                </span>
+              )}
+            </div>
 
-                <div>
-                  <label
-                    htmlFor="age"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Age
-                  </label>
-                  <input
-                    id="age"
-                    name="age"
-                    type="number"
-                    {...formik.getFieldProps("age")}
-                    className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  />
-                  {formik.touched.age && formik.errors.age && (
-                    <span className="text-xs text-red-500">
-                      {formik.errors.age}
-                    </span>
-                  )}
-                </div>
+            <div>
+              <label
+                htmlFor="age"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Age
+              </label>
+              <input
+                id="age"
+                name="age"
+                type="number"
+                {...formik.getFieldProps("age")}
+                className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+              {formik.touched.age && formik.errors.age && (
+                <span className="text-xs text-red-500">
+                  {formik.errors.age}
+                </span>
+              )}
+            </div>
 
-                <div>
-                  <label
-                    htmlFor="gender"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Gender
-                  </label>
-                  <select
-                    id="gender"
-                    name="gender"
-                    {...formik.getFieldProps("gender")}
-                    className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  >
-                    <option value="">Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                  </select>
-                  {formik.touched.gender && formik.errors.gender && (
-                    <span className="text-xs text-red-500">
-                      {formik.errors.gender}
-                    </span>
-                  )}
-                </div>
+            <div>
+              <label
+                htmlFor="gender"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Gender
+              </label>
+              <select
+                id="gender"
+                name="gender"
+                {...formik.getFieldProps("gender")}
+                className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              >
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+              {formik.touched.gender && formik.errors.gender && (
+                <span className="text-xs text-red-500">
+                  {formik.errors.gender}
+                </span>
+              )}
+            </div>
 
-                <div>
-                  <label
-                    htmlFor="mobile_no"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Mobile Number
-                  </label>
-                  <input
-                    id="mobile_no"
-                    name="mobile_no"
-                    type="text"
-                    {...formik.getFieldProps("mobile_no")}
-                    className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  />
-                  {formik.touched.mobile_no && formik.errors.mobile_no && (
-                    <span className="text-xs text-red-500">
-                      {formik.errors.mobile_no}
-                    </span>
-                  )}
-                </div>
-              </>
-            )}
+            <div>
+              <label
+                htmlFor="mobile_no"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Mobile Number
+              </label>
+              <input
+                id="mobile_no"
+                name="mobile_no"
+                type="text"
+                {...formik.getFieldProps("mobile_no")}
+                className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+              {formik.touched.mobile_no && formik.errors.mobile_no && (
+                <span className="text-xs text-red-500">
+                  {formik.errors.mobile_no}
+                </span>
+              )}
+            </div>
 
             <div>
               <label
@@ -408,52 +380,49 @@ export default function RegistrationPage() {
                   </span>
                 )}
             </div>
-            {selected !== "Admin" && (
-              <>
-                <div>
-                  <label
-                    htmlFor="educational_qualification"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Educational Qualification
-                  </label>
-                  <input
-                    id="educational_qualification"
-                    name="educational_qualification"
-                    type="text"
-                    {...formik.getFieldProps("educational_qualification")}
-                    className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  />
-                  {formik.touched.educational_qualification &&
-                    formik.errors.educational_qualification && (
-                      <span className="text-xs text-red-500">
-                        {formik.errors.educational_qualification}
-                      </span>
-                    )}
-                </div>
 
-                <div>
-                  <label
-                    htmlFor="institution"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Institution
-                  </label>
-                  <input
-                    id="institution"
-                    name="institution"
-                    type="text"
-                    {...formik.getFieldProps("institution")}
-                    className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  />
-                  {formik.touched.institution && formik.errors.institution && (
-                    <span className="text-xs text-red-500">
-                      {formik.errors.institution}
-                    </span>
-                  )}
-                </div>
-              </>
-            )}
+            <div>
+              <label
+                htmlFor="educational_qualification"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Educational Qualification
+              </label>
+              <input
+                id="educational_qualification"
+                name="educational_qualification"
+                type="text"
+                {...formik.getFieldProps("educational_qualification")}
+                className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+              {formik.touched.educational_qualification &&
+                formik.errors.educational_qualification && (
+                  <span className="text-xs text-red-500">
+                    {formik.errors.educational_qualification}
+                  </span>
+                )}
+            </div>
+
+            <div>
+              <label
+                htmlFor="institution"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Institution
+              </label>
+              <input
+                id="institution"
+                name="institution"
+                type="text"
+                {...formik.getFieldProps("institution")}
+                className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+              {formik.touched.institution && formik.errors.institution && (
+                <span className="text-xs text-red-500">
+                  {formik.errors.institution}
+                </span>
+              )}
+            </div>
 
             {selected === "Entrepreneur" && (
               <>
@@ -652,92 +621,88 @@ export default function RegistrationPage() {
               </>
             )}
 
-            {selected != "Admin" && (
-              <>
-                <div>
-                  <label
-                    htmlFor="state"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    State
-                  </label>
-                  <input
-                    id="state"
-                    name="state"
-                    type="text"
-                    {...formik.getFieldProps("state")}
-                    className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  />
-                  {formik.touched.state && formik.errors.state && (
-                    <span className="text-xs text-red-500">
-                      {formik.errors.state}
-                    </span>
-                  )}
-                </div>
+            <div>
+              <label
+                htmlFor="state"
+                className="block text-sm font-medium text-gray-700"
+              >
+                State
+              </label>
+              <input
+                id="state"
+                name="state"
+                type="text"
+                {...formik.getFieldProps("state")}
+                className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+              {formik.touched.state && formik.errors.state && (
+                <span className="text-xs text-red-500">
+                  {formik.errors.state}
+                </span>
+              )}
+            </div>
 
-                <div>
-                  <label
-                    htmlFor="city"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    City
-                  </label>
-                  <input
-                    id="city"
-                    name="city"
-                    type="text"
-                    {...formik.getFieldProps("city")}
-                    className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  />
-                  {formik.touched.city && formik.errors.city && (
-                    <span className="text-xs text-red-500">
-                      {formik.errors.city}
-                    </span>
-                  )}
-                </div>
+            <div>
+              <label
+                htmlFor="city"
+                className="block text-sm font-medium text-gray-700"
+              >
+                City
+              </label>
+              <input
+                id="city"
+                name="city"
+                type="text"
+                {...formik.getFieldProps("city")}
+                className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+              {formik.touched.city && formik.errors.city && (
+                <span className="text-xs text-red-500">
+                  {formik.errors.city}
+                </span>
+              )}
+            </div>
 
-                <div>
-                  <label
-                    htmlFor="address"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Address
-                  </label>
-                  <textarea
-                    id="address"
-                    name="address"
-                    {...formik.getFieldProps("address")}
-                    className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  />
-                  {formik.touched.address && formik.errors.address && (
-                    <span className="text-xs text-red-500">
-                      {formik.errors.address}
-                    </span>
-                  )}
-                </div>
+            <div>
+              <label
+                htmlFor="address"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Address
+              </label>
+              <textarea
+                id="address"
+                name="address"
+                {...formik.getFieldProps("address")}
+                className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+              {formik.touched.address && formik.errors.address && (
+                <span className="text-xs text-red-500">
+                  {formik.errors.address}
+                </span>
+              )}
+            </div>
 
-                <div>
-                  <label
-                    htmlFor="pincode"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Pincode
-                  </label>
-                  <input
-                    id="pincode"
-                    name="pincode"
-                    type="text"
-                    {...formik.getFieldProps("pincode")}
-                    className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  />
-                  {formik.touched.pincode && formik.errors.pincode && (
-                    <span className="text-xs text-red-500">
-                      {formik.errors.pincode}
-                    </span>
-                  )}
-                </div>
-              </>
-            )}
+            <div>
+              <label
+                htmlFor="pincode"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Pincode
+              </label>
+              <input
+                id="pincode"
+                name="pincode"
+                type="text"
+                {...formik.getFieldProps("pincode")}
+                className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+              {formik.touched.pincode && formik.errors.pincode && (
+                <span className="text-xs text-red-500">
+                  {formik.errors.pincode}
+                </span>
+              )}
+            </div>
 
             <div className="flex space-x-4">
               <button

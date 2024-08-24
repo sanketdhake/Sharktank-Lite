@@ -44,7 +44,7 @@ export default function EntrepreneurNavbar() {
             {" "}
             {/* Reduced space between links */}
             <Link
-              to="/profile"
+              to="/entrepreneur/profile"
               className={linkClasses("/profile")}
               onClick={() => setSelected("/profile")}
             >
@@ -52,7 +52,7 @@ export default function EntrepreneurNavbar() {
               Profile
             </Link>
             <Link
-              to="/business"
+              to="/entrepreneur/list_business"
               className={linkClasses("/business")}
               onClick={() => setSelected("/business")}
             >
