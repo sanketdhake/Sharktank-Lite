@@ -41,5 +41,10 @@ business_Router.get(
   "/api/v1/business/list_not_verified",
   business_controller.list_not_verified
 );
+business_Router.get(
+  "/api/v1/business/get_equity/:id",
+  isAuthenticated,
+  business_controller.get_equity
+);
 
 module.exports = business_Router;

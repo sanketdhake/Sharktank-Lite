@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getUser } from "../../../utils/getUser";
 
 export const entrepreneurLoginAPI = async ({ email_id, password }) => {
   console.log(
@@ -59,6 +60,23 @@ export const entrepreneurRegisterAPI = async ({
       city,
       address,
       pincode,
+    }
+  );
+  //return the promice
+  return response.data;
+};
+
+export const EntrepreneurProfileAPI = async () => {
+  const token = getUser();
+
+  //console.log(`user token in services - ${token}`);
+
+  const response = await axios.get(
+    "http://localhost:3000/api/v1/entrepreneur/profile",
+    {
+      headers: {
+        Authorization: token,
+      },
     }
   );
   //return the promice

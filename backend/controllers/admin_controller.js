@@ -27,7 +27,7 @@ const admin_controller = {
       });
       res.json({
         message: "login successful",
-        token,
+        token: "1",
         Admin: found_admin.name,
         Email: found_admin.email_id,
       });

@@ -35,15 +35,19 @@ export default function LoginPage() {
     dispatch(setUserAction(title));
   };
 
-  const userType = useSelector((state) => state.auth.userType);
+  var userType = useSelector((state) => state.auth.userType);
+  var navigation_link = "/";
   // Function to select the appropriate API based on userType
   const getLoginAPI = (userType) => {
     switch (userType) {
       case "Entrepreneur":
+        navigation_link = "/entrepreneur/profile";
         return entrepreneurLoginAPI;
       case "Admin":
+        navigation_link = "/admin/dashboard";
         return adminLoginAPI;
       case "Shark":
+        navigation_link = "/shark/profile";
         return sharkLoginAPI;
       default:
         throw new Error("Invalid user type");
@@ -72,10 +76,7 @@ export default function LoginPage() {
           // dispatch the action
           console.log(data);
           dispatch(loginAction(data));
-          //saving user in localstorage
-          localStorage.setItem("user", JSON.stringify(data));
-          console.log("Data being stored:", data);
-          localStorage.setItem("Role", JSON.stringify(userType));
+          localStorage.setItem("userId", JSON.stringify(data.token));
         })
         .catch((e) => {
           console.log(e);
@@ -87,9 +88,9 @@ export default function LoginPage() {
   useEffect(() => {
     setTimeout(() => {
       if (isSuccess) {
-        navigate("/");
+        navigate(navigation_link);
       }
-    }, 1500);
+    }, 500);
   }, [isPending, isError, isSuccess, error]);
 
   return (

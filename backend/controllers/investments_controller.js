@@ -28,9 +28,11 @@ const investments_controller = {
           message: "Business dosent have enough equity for this investment",
         });
       } else {
+        const shark = await Shark.findById(req.user);
         const investment = Investment.create({
           shark_id: req.user,
           business_id,
+          shark_name: shark.name,
           amount,
           equity,
           royalty,
@@ -56,6 +58,7 @@ const investments_controller = {
     const entrepreneur = await Entrepreneur.findById(req.user);
     const investment_id = req.params.id;
     const investment = await Investment.findById(investment_id);
+
     const business = await Business.findById(investment.business_id);
     const shark = await Shark.findById(investment.shark_id);
 
