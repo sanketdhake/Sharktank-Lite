@@ -67,7 +67,18 @@ const validationSchema = Yup.object({
   month2_revenue: Yup.number().min(0, "Revenue cannot be negative"),
   month3: Yup.date(),
   month3_revenue: Yup.number().min(0, "Revenue cannot be negative"),
-  registration_reason: Yup.string()
+  file2: Yup.mixed()
+    .test(
+      "file2Size",
+      "File size is too large, max size is 2MB",
+      (value) => !value || (value && value.size <= 2 * 1024 * 1024) // 2MB limit
+    )
+    .test(
+      "file2Format",
+      "Unsupported format, only documents are allowed",
+      (value) => !value || (value && value.type.startsWith("application/"))
+    ),
+  Registration_reason: Yup.string()
     .oneOf([
       "To raise funds",
       "for guidance",
@@ -114,7 +125,8 @@ export default function BusinessRegistrationPage() {
       month2_revenue: "",
       month3: "",
       month3_revenue: "",
-      registration_reason: "",
+      file2: null,
+      Registration_reason: "",
       bankruptcy: false,
       pending_legal_proceedings: false,
     },
@@ -451,7 +463,7 @@ export default function BusinessRegistrationPage() {
               htmlFor="file"
               className="block text-sm font-medium text-gray-700"
             >
-              Upload File
+              Product image
             </label>
             <input
               id="file"
@@ -595,15 +607,38 @@ export default function BusinessRegistrationPage() {
 
           <div>
             <label
-              htmlFor="registration_reason"
+              htmlFor="file2"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Business Documents
+            </label>
+            <input
+              id="file2"
+              name="file2"
+              type="file"
+              onChange={(event) =>
+                formik.setFieldValue("file2", event.target.files[0])
+              }
+              className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            />
+            {formik.touched.file2 && formik.errors.file2 && (
+              <span className="text-xs text-red-500">
+                {formik.errors.file2}
+              </span>
+            )}
+          </div>
+
+          <div>
+            <label
+              htmlFor="Registration_reason"
               className="block text-sm font-medium text-gray-700"
             >
               Registration Reason
             </label>
             <select
-              id="registration_reason"
-              name="registration_reason"
-              {...formik.getFieldProps("registration_reason")}
+              id="Registration_reason"
+              name="Registration_reason"
+              {...formik.getFieldProps("Registration_reason")}
               className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             >
               <option value="">Select Registration Reason</option>
@@ -614,10 +649,10 @@ export default function BusinessRegistrationPage() {
               </option>
               <option value="marketing">Marketing</option>
             </select>
-            {formik.touched.registration_reason &&
-              formik.errors.registration_reason && (
+            {formik.touched.Registration_reason &&
+              formik.errors.Registration_reason && (
                 <span className="text-xs text-red-500">
-                  {formik.errors.registration_reason}
+                  {formik.errors.Registration_reason}
                 </span>
               )}
           </div>

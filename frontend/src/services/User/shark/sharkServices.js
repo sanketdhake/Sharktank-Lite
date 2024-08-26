@@ -32,7 +32,7 @@ export const sharkRegistrationAPI = async ({
   address,
   pincode,
 }) => {
-  //console.log(`data is received in Shark Registration API ${file.name}`);
+  console.log(`data is received in Shark Registration API ${file.name}`);
   const formData = new FormData();
 
   formData.append("name", name);

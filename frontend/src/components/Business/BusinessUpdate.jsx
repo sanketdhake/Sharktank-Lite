@@ -45,12 +45,35 @@ const validationSchema = Yup.object({
     .required("Required")
     .min(0, "Months cannot be negative"),
   website_link: Yup.string().url("Invalid URL"),
+  file: Yup.mixed()
+    .required("A file is required")
+    .test(
+      "fileSize",
+      "File size is too large, max size is 2MB",
+      (value) => !value || (value && value.size <= 2 * 1024 * 1024) // 2MB limit
+    )
+    .test(
+      "fileFormat",
+      "Unsupported format, only images are allowed",
+      (value) => !value || (value && value.type.startsWith("image/"))
+    ),
   month1: Yup.date().required("Month 1 date is required"),
   month1_revenue: Yup.number().required("Month 1 revenue is required"),
   month2: Yup.date().required("Month 2 date is required"),
   month2_revenue: Yup.number().required("Month 2 revenue is required"),
   month3: Yup.date().required("Month 3 date is required"),
   month3_revenue: Yup.number().required("Month 3 revenue is required"),
+  file2: Yup.mixed()
+    .test(
+      "file2Size",
+      "File size is too large, max size is 2MB",
+      (value) => !value || (value && value.size <= 2 * 1024 * 1024) // 2MB limit
+    )
+    .test(
+      "file2Format",
+      "Unsupported format, only documents are allowed",
+      (value) => !value || (value && value.type.startsWith("application/"))
+    ),
   Registration_reason: Yup.string()
     .oneOf(
       [
@@ -86,6 +109,7 @@ const useBusinessUpdateFormik = (onSubmit) => {
       month2_revenue: "",
       month3: "",
       month3_revenue: "",
+      file2: null,
       Registration_reason: "",
       bankruptcy: false,
       pending_legal_proceedings: false,
@@ -361,7 +385,7 @@ export default function BusinessUpdate() {
               name="file"
               type="file"
               onChange={(event) =>
-                formik.setFieldValue("file", event.currentTarget.files[0])
+                formik.setFieldValue("file", event.target.files[0])
               }
               className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
@@ -498,6 +522,29 @@ export default function BusinessUpdate() {
             {formik.touched.month3_revenue && formik.errors.month3_revenue && (
               <span className="text-xs text-red-500">
                 {formik.errors.month3_revenue}
+              </span>
+            )}
+          </div>
+
+          <div>
+            <label
+              htmlFor="file2"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Business Documents
+            </label>
+            <input
+              id="file2"
+              name="file2"
+              type="file"
+              onChange={(event) =>
+                formik.setFieldValue("file2", event.target.files[0])
+              }
+              className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            />
+            {formik.touched.file2 && formik.errors.file2 && (
+              <span className="text-xs text-red-500">
+                {formik.errors.file2}
               </span>
             )}
           </div>

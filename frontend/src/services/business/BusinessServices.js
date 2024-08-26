@@ -52,6 +52,7 @@ export const BusinessRegisterAPI = async ({
   month2,
   month2_revenue,
   month3,
+  file2,
   month3_revenue,
   Registration_reason,
   bankruptcy,
@@ -79,6 +80,7 @@ export const BusinessRegisterAPI = async ({
   formData.append("month2", month2);
   formData.append("month2_revenue", month2_revenue);
   formData.append("month3", month3);
+  formData.append("file2", file2);
   formData.append("month3_revenue", month3_revenue);
   formData.append("Registration_reason", Registration_reason);
   formData.append("bankruptcy", bankruptcy);
@@ -117,6 +119,7 @@ export const BusinessUpdateAPI = async ({
   month2_revenue,
   month3,
   month3_revenue,
+  file2,
   Registration_reason,
   bankruptcy,
   pending_legal_proceedings,
@@ -141,6 +144,7 @@ export const BusinessUpdateAPI = async ({
   formData.append("month2_revenue", month2_revenue);
   formData.append("month3", month3);
   formData.append("month3_revenue", month3_revenue);
+  formData.append("file2", file2);
   formData.append("Registration_reason", Registration_reason);
   formData.append("bankruptcy", bankruptcy);
   formData.append("pending_legal_proceedings", pending_legal_proceedings);
