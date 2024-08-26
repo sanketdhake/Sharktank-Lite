@@ -5,6 +5,7 @@ import {
   BusinessEquityAPI,
 } from "../../../services/business/BusinessServices";
 import { FaArrowRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -55,6 +56,10 @@ export default function EntrepreneurBusiness() {
     localStorage.setItem("business_id", business._id);
   };
 
+  const handleUpdateClick = (business) => {
+    localStorage.setItem("business_id", business._id);
+  };
+
   const renderBasicInfo = (business) => (
     <div>
       <img
@@ -97,7 +102,7 @@ export default function EntrepreneurBusiness() {
       labels: equityData?.Investors_names || [],
       datasets: [
         {
-          data: equityData?.Investmants_equity || [],
+          data: equityData?.Investments_equity || [],
           backgroundColor: [
             "#FF6384", // Red
             "#36A2EB", // Blue
@@ -211,25 +216,45 @@ export default function EntrepreneurBusiness() {
             selectedBusiness ? "w-1/3" : "w-1/2"
           } mt-5`}
         >
-          {data.map((business, index) => (
-            <div
-              key={index}
-              className={`mb-5 my-5 p-4 border rounded-lg shadow-md bg-white text-center relative ${
-                selectedBusiness && selectedBusiness._id !== business._id
-                  ? "blur-sm"
-                  : ""
-              }`}
-            >
-              <h2 className="text-xl font-bold mb-2">{business.brand_name}</h2>
-              <p className="text-gray-700 mb-2">{business.business_idea}</p>
-              <button
-                onClick={() => handleNextClick(business)}
-                className="absolute right-4 bottom-4 flex items-center bg-blue-500 text-white py-1 px-2 rounded text-sm"
+          <ul className="list-none p-0">
+            {data.map((business, index) => (
+              <li
+                key={index}
+                className={`mb-5 my-5 p-4 border rounded-lg shadow-md bg-white text-center relative ${
+                  selectedBusiness && selectedBusiness._id !== business._id
+                    ? "blur-sm"
+                    : ""
+                }`}
               >
-                Next <FaArrowRight className="ml-2" />
-              </button>
-            </div>
-          ))}
+                <h2 className="text-xl font-bold mb-2">
+                  {business.brand_name}
+                </h2>
+                <p className="text-gray-700 mb-2">{business.business_idea}</p>
+                <Link to="/business/update">
+                  <button
+                    onClick={() => handleUpdateClick(business)}
+                    className="absolute right-24 bottom-4 flex items-center bg-green-500 text-white py-1 px-2 rounded text-sm"
+                  >
+                    Update
+                  </button>
+                </Link>
+                <button
+                  onClick={() => handleNextClick(business)}
+                  className="absolute right-4 bottom-4 flex items-center bg-blue-500 text-white py-1 px-2 rounded text-sm"
+                >
+                  Next <FaArrowRight className="ml-2" />
+                </button>
+              </li>
+            ))}
+            <li className="mb-5 my-5 p-4 border rounded-lg shadow-md bg-white text-center flex justify-between items-center relative">
+              <span className="text-xl font-bold">Add new Business</span>
+              <Link to="/business/register">
+                <button className="absolute right-4 bottom-4 flex items-center bg-blue-500 text-white py-1 px-2 rounded text-sm">
+                  Next <FaArrowRight className="ml-2" />
+                </button>
+              </Link>
+            </li>
+          </ul>
         </div>
 
         {selectedBusiness && (

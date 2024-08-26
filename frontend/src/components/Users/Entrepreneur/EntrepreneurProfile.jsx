@@ -4,6 +4,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { EntrepreneurProfileAPI } from "../../../services/User/entrepreneur/entrepreneurServices";
+import { Link } from "react-router-dom";
 
 export default function EntrepreneurProfile() {
   //fetching entrepreneur profile
@@ -15,12 +16,11 @@ export default function EntrepreneurProfile() {
   const [selectedSection, setSelectedSection] = useState(
     "Personal Information"
   );
-  //const entrepreneur = data;
+
   if (isSuccess && data) {
     return (
       <>
         {/* Background Image Div */}
-
         <div className="my-8 h-80 flex items-center justify-center">
           <img
             src={bg_image}
@@ -29,7 +29,6 @@ export default function EntrepreneurProfile() {
             style={{ maxHeight: "100%", maxWidth: "100%" }}
           />
         </div>
-        {/* data Information Div */}
         {/* Main Div */}
         <div className="mx-4 flex">
           {/* Left Div (30% width) */}
@@ -46,7 +45,7 @@ export default function EntrepreneurProfile() {
             <h2 className="text-xl font-semibold mb-4">Profile Information</h2>
 
             {/* Navbar for Sections */}
-            <div className="flex mb-4 border-b">
+            <div className="flex items-center mb-4 border-b">
               <button
                 onClick={() => setSelectedSection("Personal Information")}
                 className={`flex-1 py-2 px-4 text-left ${
@@ -87,11 +86,18 @@ export default function EntrepreneurProfile() {
               >
                 Address
               </button>
+              {/* Update Profile Button */}
+              <div className="ml-auto">
+                <Link to="/entrepreneur/profileUpdate">
+                  <button className="py-2 px-6 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                    Update Profile
+                  </button>
+                </Link>
+              </div>
             </div>
 
             {/* Section Content */}
             <div className="mt-4 h-40 overflow-y-auto">
-              {/* Personal Information */}
               {selectedSection === "Personal Information" && (
                 <div className="h-full">
                   <p>
@@ -110,7 +116,6 @@ export default function EntrepreneurProfile() {
                 </div>
               )}
 
-              {/* Education */}
               {selectedSection === "Education" && (
                 <div className="h-full">
                   <p>
@@ -126,7 +131,6 @@ export default function EntrepreneurProfile() {
                 </div>
               )}
 
-              {/* Contact Info */}
               {selectedSection === "Contact Info" && (
                 <div className="h-full">
                   <p>
@@ -146,7 +150,6 @@ export default function EntrepreneurProfile() {
                 </div>
               )}
 
-              {/* Address */}
               {selectedSection === "Address" && (
                 <div className="h-full">
                   <p>

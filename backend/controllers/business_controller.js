@@ -122,10 +122,10 @@ const business_controller = {
     if (!req.user) {
       res.send("login session is expired , please login again");
     }
+
     const business_id = req.params.id;
     const business = await Business.findById(business_id);
-    console.log(req.user);
-    console.log(business.entrepreneur_id);
+
     if (req.user == business.entrepreneur_id) {
       business.entrepreneur_id = req.user || business.entrepreneur_id;
       business.business_stage =
@@ -217,7 +217,9 @@ const business_controller = {
     var sharkArray = [];
     //const entrepreneur = Entrepreneur.findById(req.user);
     const business_id = req.params.id;
+
     const business = await Business.findById(business_id);
+
     equityArray.push(business.entrepreneurs_equity);
     sharkArray.push("You");
 
@@ -225,11 +227,13 @@ const business_controller = {
       business_id: new ObjectId(business_id),
     });
     investments.forEach((investment) => {
-      equityArray.push(investment.equity);
-      sharkArray.push(investment.shark_name);
+      if (investment.accepted == true) {
+        equityArray.push(investment.equity);
+        sharkArray.push(investment.shark_name);
+      }
     });
     res.json({
-      Investmants_equity: equityArray,
+      Investments_equity: equityArray,
       Investors_names: sharkArray,
     });
   }),

@@ -7,6 +7,7 @@ const Business = require("../models/business");
 const { hash_passwordfn } = require("../utils/hash_password");
 const { verify_passwordfn } = require("../utils/verify_password");
 const jwt = require("jsonwebtoken");
+const sendEmail = require("../utils/SendEmail");
 dotenv.config();
 
 const admin_controller = {
@@ -100,6 +101,45 @@ const admin_controller = {
     found_business.verified = true;
     found_business.save();
     res.json({ message: "Business is verified" });
+  }),
+  entrepreneur_support: asyncHandler(async (req, res) => {
+    if (!req.user) {
+      res.send({ message: "login session is expired , please login again" });
+    }
+    const entrepreneur = await Entrepreneur.findById(req.user);
+    const subject = `Query is received by Entrepreneur ${entrepreneur.name}`;
+    const message =
+      req.body.message +
+      `<br><p>Entrepreneur Details</p>
+    <p>name : ${entrepreneur.name}</p>
+    <p>email: ${entrepreneur.email_id}</p>
+    <p>Please respond to the Shark as soon as possible</p><br>`;
+    await sendEmail("sdktp1209v4@gmail.com", subject, message);
+    res.json({
+      message:
+        "Your request is sent to the admins, They will connect with you shortly",
+    });
+  }),
+
+  shark_support: asyncHandler(async (req, res) => {
+    if (!req.user) {
+      res.send({ message: "login session is expired , please login again" });
+    }
+    const shark_id = req.user;
+    const shark = await Shark.findById(shark_id);
+    const subject = `Query is received by Shark ${shark.name}`;
+    const message =
+      req.body.message +
+      `<br><p>Shark Details</p>
+    <p>name : ${shark.name}</p>
+    <p>email: ${shark.email_id}</p>
+    <p>Please respond to the Shark as soon as possible</p><br>`;
+
+    await sendEmail("sdktp1209v4@gmail.com", subject, message);
+    res.json({
+      message:
+        "Your request is sent to the admins, They will connect with you shortly",
+    });
   }),
 };
 

@@ -69,10 +69,51 @@ export const entrepreneurRegisterAPI = async ({
 export const EntrepreneurProfileAPI = async () => {
   const token = getUser();
 
-  //console.log(`user token in services - ${token}`);
-
   const response = await axios.get(
     "http://localhost:3000/api/v1/entrepreneur/profile",
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+  //return the promice
+  return response.data;
+};
+
+export const EntrepreneurProfileUpdateAPI = async ({
+  age,
+  mobile_no,
+  email_id,
+  educational_qualification,
+  institution,
+  employed,
+  business_designation,
+  writing_language_proficiency,
+  spoken_language_proficiency,
+  state,
+  city,
+  address,
+  pincode,
+}) => {
+  const token = getUser();
+  const response = await axios.post(
+    "http://localhost:3000/api/v1/entrepreneur/update",
+    {
+      age,
+      mobile_no,
+      email_id,
+      educational_qualification,
+      institution,
+      employed,
+      business_designation,
+      writing_language_proficiency,
+      spoken_language_proficiency,
+      state,
+      city,
+      address,
+      pincode,
+    },
     {
       headers: {
         Authorization: token,

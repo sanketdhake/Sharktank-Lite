@@ -11,6 +11,7 @@ const investmentSchema = new mongoose.Schema(
     royalty_duration: { type: Number, required: true },
     accepted: { type: Boolean, required: true },
     completed: { type: Boolean, required: true },
+    rejected: { type: Boolean, required: true },
   },
   { timestamps: true }
 );

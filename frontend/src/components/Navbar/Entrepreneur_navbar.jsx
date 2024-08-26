@@ -60,7 +60,7 @@ export default function EntrepreneurNavbar() {
               Business
             </Link>
             <Link
-              to="/investments"
+              to="entrepreneur/investments"
               className={linkClasses("/investments")}
               onClick={() => setSelected("/investments")}
             >
@@ -68,7 +68,7 @@ export default function EntrepreneurNavbar() {
               Investments
             </Link>
             <Link
-              to="/reports"
+              to="entrepreneur/analytics"
               className={linkClasses("/reports")}
               onClick={() => setSelected("/reports")}
             >
@@ -76,7 +76,7 @@ export default function EntrepreneurNavbar() {
               Report & Analytics
             </Link>
             <Link
-              to="/help"
+              to="entrepreneur/support"
               className={linkClasses("/help")}
               onClick={() => setSelected("/help")}
             >
