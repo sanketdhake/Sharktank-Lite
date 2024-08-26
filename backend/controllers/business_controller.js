@@ -99,13 +99,14 @@ const business_controller = {
       business_years: Number(business_years),
       business_months: Number(business_months),
       website_link,
-      product_image: req.file.path,
+      product_image: req.files.file[0].path,
       month1: new Date(month1),
       month1_revenue: Number(month1_revenue),
       month2: new Date(month2),
       month2_revenue: Number(month2_revenue),
       month3: new Date(month3),
       month3_revenue: Number(month3_revenue),
+      business_documents: req.files.file2[0].path,
       Registration_reason,
       bankruptcy: JSON.parse(bankruptcy),
       pending_legal_proceedings: JSON.parse(pending_legal_proceedings),
@@ -152,8 +153,9 @@ const business_controller = {
         req.body.business_years || business.business_years;
       business.business_months =
         req.body.business_months || business.business_months;
-      if (req.file) {
-        business.product_image = req.file.path;
+      if (req.files.file[0]) {
+        business.product_image =
+          req.files.file[0].path || business.product_image;
       }
 
       business.month1 = req.body.month1 || business.month1;
@@ -165,6 +167,10 @@ const business_controller = {
       business.month3 = req.body.month3 || business.month3;
       business.month3_revenue =
         req.body.month3_revenue || business.month3_revenue;
+      if (req.files.file2[0]) {
+        business.business_documents =
+          req.files.file2[0].path || business.business_documents;
+      }
       business.Registration_reason =
         req.body.Registration_reason || business.Registration_reason;
       business.bankruptcy = req.body.bankruptcy || business.bankruptcy;

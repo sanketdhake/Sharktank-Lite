@@ -13,7 +13,7 @@ shark_Router.post(
     req.format = "zip";
     next();
   },
-  upload.single("file"),
+  upload,
   shark_controller.register
 );
 shark_Router.post("/api/v1/shark/login", shark_controller.login);
@@ -26,7 +26,7 @@ shark_Router.post(
     req.format = "zip";
     next();
   },
-  upload.single("file"),
+  upload,
   shark_controller.update
 );
 shark_Router.delete(

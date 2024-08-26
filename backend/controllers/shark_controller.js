@@ -12,14 +12,14 @@ const ObjectID = mongoose.Types.ObjectId;
 const shark_controller = {
   //register API
   register: asyncHandler(async (req, res) => {
-    if (!req.file) {
+    if (!req.files.file[0]) {
       console.log("there is no file in request");
       throw new Error("Please provide all required details");
       res.status(400);
       res.json({ message: "Please provide all required details" });
     }
 
-    req.fileUrl = req.file.path;
+    //req.fileUrl = req.file.path;
     const formdata = req.body;
     if (
       !formdata.name ||
@@ -70,7 +70,7 @@ const shark_controller = {
       institution,
       networth: Number(networth),
       investment_capacity: Number(investment_capacity),
-      business_documents: req.fileUrl,
+      business_documents: req.files.file[0].path,
       domain,
       state,
       city,
@@ -149,7 +149,8 @@ const shark_controller = {
       shark.investment_capacity =
         req.body.investment_capacity || shark.investment_capacity;
       if (req.file) {
-        shark.business_documents = req.file.path || shark.business_documents;
+        shark.business_documents =
+          req.files.file[0].path || shark.business_documents;
       }
 
       shark.domain = req.body.domain || shark.domain;

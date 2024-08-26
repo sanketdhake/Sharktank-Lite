@@ -144,11 +144,11 @@ export default function RegistrationPage() {
       pincode: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       //making http request
       console.log("reachable");
 
-      mutateAsync(values)
+      await mutateAsync(values)
         .then((data) => {
           // dispatch the action
           console.log(data);

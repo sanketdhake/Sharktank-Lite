@@ -10,22 +10,30 @@ business_Router.post(
     req.folderName = "Business_Image";
     req.resource_type = "image";
     req.format = "jpeg";
+
+    req.folderName2 = "Business_Document";
+    req.resource_type2 = "raw";
+    req.format2 = "zip";
     next();
   },
-  upload.single("file"),
+  upload,
   isAuthenticated,
   business_controller.register
 );
 business_Router.post(
   "/api/v1/business/update/:id",
-  isAuthenticated,
   async (req, res, next) => {
     req.folderName = "Business_Image";
     req.resource_type = "image";
     req.format = "jpeg";
+
+    req.folderName2 = "Business_Document";
+    req.resource_type2 = "raw";
+    req.format2 = "zip";
     next();
   },
-  upload.single("file"),
+  upload,
+  isAuthenticated,
   business_controller.update
 );
 business_Router.delete(

@@ -21,6 +21,7 @@ const businessSchema = new mongoose.Schema(
     business_months: { type: Number, required: true },
     website_link: { type: String },
     product_image: { type: String, required: true },
+    business_documents: { type: String, required: true },
     month1: { type: Date },
     month1_revenue: { type: Number },
     month2: { type: Date },
