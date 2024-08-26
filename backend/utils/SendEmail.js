@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-const sendEmail = async (to, messageContent) => {
+const sendEmail = async (to, subject, messageContent) => {
   try {
     //create transporter
     const transporter = nodemailer.createTransport({
@@ -15,9 +15,8 @@ const sendEmail = async (to, messageContent) => {
     //message obj
     const message = {
       to: to,
-      subject: "New Message from SharkTank-Lite  APP",
+      subject: subject,
       html: `
-            <h3>You have received a new message from Sharktank Lite</h3>
             <p>${messageContent}</p>
             <p>Regards</p>
             <p>Sharktank Lite</p>
@@ -25,7 +24,7 @@ const sendEmail = async (to, messageContent) => {
     };
     //send the email
     const info = await transporter.sendMail(message);
-    console.log("Message sent", info.messageId);
+    //console.log("Message sent", info.messageId);
   } catch (error) {
     console.log(error);
     throw new Error("Email could not be sent");

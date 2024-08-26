@@ -9,6 +9,8 @@ const isAuthenticated = (req, res, next) => {
     token,
     process.env.JWT,
     async (error, decoded) => {
+      //console.log(`entrepruners decodedd id - ${decoded}`);
+
       req.user = decoded.id;
       if (error) {
         return false;

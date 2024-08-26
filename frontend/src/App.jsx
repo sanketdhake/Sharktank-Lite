@@ -11,6 +11,12 @@ import AdminDashboard from "./components/Users/Admin/AdminDashboard";
 import EntrepreneurProfile from "./components/Users/Entrepreneur/EntrepreneurProfile";
 import SharkProfile from "./components/Users/Shark/SharkProfile";
 import EntrepreneurBusiness from "./components/Users/Entrepreneur/EntreprenuerBusiness";
+import EntrepreneurInvestments from "./components/Users/Entrepreneur/EntrepreneurInvestments";
+import EntrepreneurAnalytics from "./components/Users/Entrepreneur/EntreprunerAnalytics";
+import EntrepreneurSupport from "./components/Users/Entrepreneur/EntrepreneurSupport";
+import BusinessRegistration from "./components/Business/BusinessRegistration";
+import EntrepreneurProfileUpdate from "./components/Users/Entrepreneur/EntrepreneurProfileUpdate";
+import BusinessUpdate from "./components/Business/BusinessUpdate";
 
 function App() {
   const userType = useSelector((state) => state.auth.userType);
@@ -49,12 +55,31 @@ function App() {
             path="/entrepreneur/profile"
             element={<EntrepreneurProfile />}
           />
+          <Route
+            path="/entrepreneur/profileUpdate"
+            element={<EntrepreneurProfileUpdate />}
+          />
+
           <Route path="/shark/profile" element={<SharkProfile />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route
             path="entrepreneur/list_business"
             element={<EntrepreneurBusiness />}
           />
+          <Route
+            path="entrepreneur/investments"
+            element={<EntrepreneurInvestments />}
+          />
+          <Route
+            path="entrepreneur/analytics"
+            element={<EntrepreneurAnalytics />}
+          />
+          <Route
+            path="entrepreneur/support"
+            element={<EntrepreneurSupport />}
+          />
+          <Route path="business/register" element={<BusinessRegistration />} />
+          <Route path="business/update" element={<BusinessUpdate />} />
         </Routes>
       </BrowserRouter>
     </>

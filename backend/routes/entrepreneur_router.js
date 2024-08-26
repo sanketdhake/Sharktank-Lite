@@ -22,8 +22,12 @@ entrepreneur_Router.delete(
   entrepreneur_controller.delete
 );
 entrepreneur_Router.get(
-  "/api/v1/entrepreneur/list",
-  entrepreneur_controller.list
+  "/api/v1/entrepreneur/list_unverified",
+  entrepreneur_controller.list_unverified
+);
+entrepreneur_Router.get(
+  "/api/v1/entrepreneur/list_verified",
+  entrepreneur_controller.list_verified
 );
 entrepreneur_Router.get(
   "/api/v1/entrepreneur/profile",

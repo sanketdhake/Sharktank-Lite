@@ -167,6 +167,7 @@ const entrepreneur_controller = {
       entrepreneur.city = req.body.city || entrepreneur.city;
       entrepreneur.address = req.body.address || entrepreneur.address;
       entrepreneur.pincode = req.body.pincode || entrepreneur.pincode;
+      entrepreneur.verified = false;
       const updated_entrepreneur = await entrepreneur.save();
       res.json({ message: "Entrepreneur details have been updated" });
     } else {
@@ -194,8 +195,12 @@ const entrepreneur_controller = {
     await Entrepreneur.findByIdAndDelete(req.user);
     res.json({ message: "Your Entrepreneur account has been deleted" });
   }),
-  list: asyncHandler(async (req, res) => {
+  list_unverified: asyncHandler(async (req, res) => {
     const entrepreneurs = await Entrepreneur.find({ verified: false });
+    res.json(entrepreneurs);
+  }),
+  list_verified: asyncHandler(async (req, res) => {
+    const entrepreneurs = await Entrepreneur.find({ verified: true });
     res.json(entrepreneurs);
   }),
   profile: asyncHandler(async (req, res) => {
