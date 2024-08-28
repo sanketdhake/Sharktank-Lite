@@ -163,3 +163,11 @@ export const BusinessUpdateAPI = async ({
 
   return response.data;
 };
+
+export const VerifiedBusinessAPI = async () => {
+  const response = await axios.get(
+    "http://localhost:3000/api/v1/business/list_verified"
+  );
+  //return the promice
+  return response.data;
+};

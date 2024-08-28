@@ -1,6 +1,29 @@
 import axios from "axios";
 import { getUser } from "../../utils/getUser";
 
+export const AddInvestmentAPI = async ({
+  amount,
+  equity,
+  royalty,
+  royalty_duration,
+  company_evaluation,
+}) => {
+  const id = localStorage.getItem("business_id");
+  const token = getUser();
+  const response = await axios.post(
+    `http://localhost:3000/api/v1/investments/add_investment/${id}`,
+    { amount, equity, royalty, royalty_duration, company_evaluation },
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+  //return the promice
+
+  return response.data;
+};
+
 export const ListNewInvestmentsAPI = async (id) => {
   const response = await axios.get(
     `http://localhost:3000/api/v1/investments/list_newInvestment/${id}`
@@ -70,6 +93,20 @@ export const RejectInvestmentsAPI = async (id) => {
   const response = await axios.post(
     `http://localhost:3000/api/v1/investments/reject_investment/${id}`,
     {},
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+  //return the promice
+  return response.data;
+};
+
+export const SharksInvestmentAPI = async (id) => {
+  const token = getUser();
+  const response = await axios.get(
+    `http://localhost:3000/api/v1/investments/list_sharksInvestment/${id}`,
     {
       headers: {
         Authorization: token,

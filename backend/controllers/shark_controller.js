@@ -187,6 +187,15 @@ const shark_controller = {
     const result = await Shark.findByIdAndDelete(req.user);
     res.json({ message: "Your Shark account has been deleted" });
   }),
+
+  profile: asyncHandler(async (req, res) => {
+    if (!req.user) {
+      res.send({ message: "login session is expired , please login again" });
+    }
+    const shark = await Shark.findById(req.user);
+    res.json(shark);
+  }),
+
   list_verified: asyncHandler(async (req, res) => {
     const sharks = await Shark.find({ verified: true });
     res.json(sharks);

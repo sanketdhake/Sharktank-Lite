@@ -44,7 +44,7 @@ export default function SharkNavbar() {
             {" "}
             {/* Reduced space between links */}
             <Link
-              to="/profile"
+              to="/shark/profile"
               className={linkClasses("/profile")}
               onClick={() => setSelected("/profile")}
             >
@@ -52,7 +52,7 @@ export default function SharkNavbar() {
               Profile
             </Link>
             <Link
-              to="/business"
+              to="/shark/business"
               className={linkClasses("/business")}
               onClick={() => setSelected("/business")}
             >
@@ -60,7 +60,7 @@ export default function SharkNavbar() {
               Business
             </Link>
             <Link
-              to="/investments"
+              to="/shark/investments"
               className={linkClasses("/investments")}
               onClick={() => setSelected("/investments")}
             >
@@ -68,7 +68,7 @@ export default function SharkNavbar() {
               Investments
             </Link>
             <Link
-              to="/reports"
+              to="/shark/analytics"
               className={linkClasses("/reports")}
               onClick={() => setSelected("/reports")}
             >
@@ -76,7 +76,7 @@ export default function SharkNavbar() {
               Report & Analytics
             </Link>
             <Link
-              to="/help"
+              to="/shark/support"
               className={linkClasses("/help")}
               onClick={() => setSelected("/help")}
             >
