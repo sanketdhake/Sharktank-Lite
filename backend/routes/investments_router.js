@@ -39,5 +39,10 @@ investments_Router.get(
   "/api/v1/investments/list_completedInvestment/:id",
   investments_controller.list_completedInvestment
 );
+investments_Router.get(
+  "/api/v1/investments/list_sharksInvestment/:id",
+  isAuthenticated,
+  investments_controller.list_sharksInvestments
+);
 
 module.exports = investments_Router;

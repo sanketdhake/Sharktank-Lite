@@ -7,6 +7,7 @@ const investmentSchema = new mongoose.Schema(
     shark_name: { type: String, required: true },
     amount: { type: String, required: true },
     equity: { type: Number, required: true },
+    company_evaluation: { type: Number, required: true },
     royalty: { type: Number, required: true },
     royalty_duration: { type: Number, required: true },
     accepted: { type: Boolean, required: true },

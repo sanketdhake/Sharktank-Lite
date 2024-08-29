@@ -20,15 +20,15 @@ const admin_controller = {
       res.json({ Message: "Please provide all required details" });
       res.status(400);
     }
-    console.log(found_admin.email_id);
+
     const isMatch = await verify_passwordfn(password, found_admin.password);
     if (isMatch) {
-      const token = jwt.sign({ id: found_admin._id }, process.env.Admin_JWT, {
+      const token = jwt.sign({ id: found_admin._id }, process.env.JWT, {
         expiresIn: "30d",
       });
       res.json({
         message: "login successful",
-        token: "1",
+        token,
         Admin: found_admin.name,
         Email: found_admin.email_id,
       });
@@ -71,6 +71,16 @@ const admin_controller = {
       });
     }
   }),
+  //profile
+  profile: asyncHandler(async (req, res) => {
+    if (!req.user) {
+      res.send("login session is expired , please login again");
+    }
+    const admin_id = req.user;
+    const found_admin = await ADMIN.findById(admin_id);
+    res.json(found_admin);
+  }),
+
   //delete
   delete: asyncHandler(async (req, res) => {
     const email_id = req.body.email_id;
@@ -80,6 +90,9 @@ const admin_controller = {
   }),
   //approve-shark
   approve_shark: asyncHandler(async (req, res) => {
+    if (!req.user) {
+      res.send({ message: "login session is expired , please login again" });
+    }
     const shark_id = req.params.id;
     const found_shark = await Shark.findById(shark_id);
     found_shark.verified = true;
@@ -89,6 +102,9 @@ const admin_controller = {
 
   //approve-entrepruner
   approve_entrepreneur: asyncHandler(async (req, res) => {
+    if (!req.user) {
+      res.send({ message: "login session is expired , please login again" });
+    }
     const entrepreneur_id = req.params.id;
     const found_entrepreneur = await Entrepreneur.findById(entrepreneur_id);
     found_entrepreneur.verified = true;
@@ -96,6 +112,9 @@ const admin_controller = {
     res.json({ message: "Entreprenuer is verified" });
   }),
   approve_business: asyncHandler(async (req, res) => {
+    if (!req.user) {
+      res.send({ message: "login session is expired , please login again" });
+    }
     const business_id = req.params.id;
     const found_business = await Business.findById(business_id);
     found_business.verified = true;
@@ -114,7 +133,7 @@ const admin_controller = {
     <p>name : ${entrepreneur.name}</p>
     <p>email: ${entrepreneur.email_id}</p>
     <p>Please respond to the Shark as soon as possible</p><br>`;
-    await sendEmail("sdktp1209v4@gmail.com", subject, message);
+    await sendEmail(entrepreneur.email_id, subject, message);
     res.json({
       message:
         "Your request is sent to the admins, They will connect with you shortly",
@@ -135,7 +154,7 @@ const admin_controller = {
     <p>email: ${shark.email_id}</p>
     <p>Please respond to the Shark as soon as possible</p><br>`;
 
-    await sendEmail("sdktp1209v4@gmail.com", subject, message);
+    await sendEmail(shark.email_id, subject, message);
     res.json({
       message:
         "Your request is sent to the admins, They will connect with you shortly",

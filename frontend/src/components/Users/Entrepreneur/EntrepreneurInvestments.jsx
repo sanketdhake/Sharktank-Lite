@@ -73,7 +73,6 @@ export default function EntrepreneurInvestments() {
 
   const renderNewOffers = () => (
     <div>
-      <h3 className="text-xl font-bold mb-4">New Offers</h3>
       {listNewInvestments_data && listNewInvestments_data.length > 0 ? (
         <ul>
           {listNewInvestments_data.map((investment, index) => (
@@ -81,6 +80,7 @@ export default function EntrepreneurInvestments() {
               <p>Shark: {investment.shark_name}</p>
               <p>Amount: ${investment.amount}</p>
               <p>Equity: {investment.equity}%</p>
+              <p>Company Evaluation: {investment.company_evaluation}</p>
               <p>
                 Royalty: {investment.royalty}% for {investment.royalty_duration}{" "}
                 months
@@ -114,7 +114,6 @@ export default function EntrepreneurInvestments() {
 
   const renderAcceptedInvestments = () => (
     <div>
-      <h3 className="text-xl font-bold mb-4">Accepted Investments</h3>
       {listAcceptedInvestments_data &&
       listAcceptedInvestments_data.length > 0 ? (
         <ul>
@@ -123,6 +122,7 @@ export default function EntrepreneurInvestments() {
               <p>Shark: {investment.shark_name}</p>
               <p>Amount: ${investment.amount}</p>
               <p>Equity: {investment.equity}%</p>
+              <p>Company Evaluation: {investment.company_evaluation}</p>
               <p>
                 Royalty: {investment.royalty}% for {investment.royalty_duration}{" "}
                 months

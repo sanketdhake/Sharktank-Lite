@@ -195,18 +195,31 @@ const entrepreneur_controller = {
     await Entrepreneur.findByIdAndDelete(req.user);
     res.json({ message: "Your Entrepreneur account has been deleted" });
   }),
+
   list_unverified: asyncHandler(async (req, res) => {
+    if (!req.user) {
+      res.send({ message: "login session is expired , please login again" });
+    }
     const entrepreneurs = await Entrepreneur.find({ verified: false });
     res.json(entrepreneurs);
   }),
+
   list_verified: asyncHandler(async (req, res) => {
+    if (!req.user) {
+      res.send({ message: "login session is expired , please login again" });
+    }
     const entrepreneurs = await Entrepreneur.find({ verified: true });
     res.json(entrepreneurs);
   }),
+
   profile: asyncHandler(async (req, res) => {
+    if (!req.user) {
+      res.send({ message: "login session is expired , please login again" });
+    }
     const entrepreneur = await Entrepreneur.findById(req.user);
     res.json(entrepreneur);
   }),
+
   list_business: asyncHandler(async (req, res) => {
     const businesses = await Business.find({
       entrepreneur_id: new ObjectID(req.user),

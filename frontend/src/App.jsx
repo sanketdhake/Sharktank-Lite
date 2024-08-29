@@ -9,7 +9,6 @@ import RegistrationPage from "./components/Users/RegistrationPage";
 import { useSelector } from "react-redux";
 import AdminDashboard from "./components/Users/Admin/AdminDashboard";
 import EntrepreneurProfile from "./components/Users/Entrepreneur/EntrepreneurProfile";
-import SharkProfile from "./components/Users/Shark/SharkProfile";
 import EntrepreneurBusiness from "./components/Users/Entrepreneur/EntreprenuerBusiness";
 import EntrepreneurInvestments from "./components/Users/Entrepreneur/EntrepreneurInvestments";
 import EntrepreneurAnalytics from "./components/Users/Entrepreneur/EntreprunerAnalytics";
@@ -17,6 +16,16 @@ import EntrepreneurSupport from "./components/Users/Entrepreneur/EntrepreneurSup
 import BusinessRegistration from "./components/Business/BusinessRegistration";
 import EntrepreneurProfileUpdate from "./components/Users/Entrepreneur/EntrepreneurProfileUpdate";
 import BusinessUpdate from "./components/Business/BusinessUpdate";
+import SharkProfile from "./components/Users/Shark/SharkProfile";
+import SharkProfileUpdate from "./components/Users/Shark/SharkProfileUpdate";
+import SharkBusiness from "./components/Users/Shark/SharkBusiness";
+import AddInvestment from "./components/Users/Shark/AddInvestment";
+import SharkInvestment from "./components/Users/Shark/SharkInvestments";
+import SharkSupport from "./components/Users/Shark/SharkSupport";
+import AdminProfile from "./components/Users/Admin/AdminProfile";
+import AdminEntrepreneur from "./components/Users/Admin/AdminEntrepreneur";
+import AdminShark from "./components/Users/Admin/AdminShark";
+import AdminBusiness from "./components/Users/Admin/Adminbusiness";
 
 function App() {
   const userType = useSelector((state) => state.auth.userType);
@@ -60,7 +69,6 @@ function App() {
             element={<EntrepreneurProfileUpdate />}
           />
 
-          <Route path="/shark/profile" element={<SharkProfile />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route
             path="entrepreneur/list_business"
@@ -80,6 +88,19 @@ function App() {
           />
           <Route path="business/register" element={<BusinessRegistration />} />
           <Route path="business/update" element={<BusinessUpdate />} />
+          <Route path="/shark/profile" element={<SharkProfile />} />
+          <Route path="/shark/profileUpdate" element={<SharkProfileUpdate />} />
+          <Route path="/shark/business" element={<SharkBusiness />} />
+          <Route path="/shark/addInvestment" element={<AddInvestment />} />
+          <Route path="/shark/investments" element={<SharkInvestment />} />
+          <Route path="shark/support" element={<SharkSupport />} />
+          <Route path="admin/profile" element={<AdminProfile />} />
+          <Route
+            path="admin/list_entrepreneurs"
+            element={<AdminEntrepreneur />}
+          />
+          <Route path="admin/list_sharks" element={<AdminShark />} />
+          <Route path="admin/list_business" element={<AdminBusiness />} />
         </Routes>
       </BrowserRouter>
     </>

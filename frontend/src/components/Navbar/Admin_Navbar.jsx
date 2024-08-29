@@ -6,6 +6,7 @@ import {
   FaChartLine,
   FaUserTie,
 } from "react-icons/fa";
+import { MdAdminPanelSettings } from "react-icons/md";
 import { MdAssessment } from "react-icons/md";
 import { IoMdLogOut } from "react-icons/io";
 import { Link, useLocation } from "react-router-dom";
@@ -47,15 +48,25 @@ export default function AdminNavbar() {
           {/* Right side: Navigation Links */}
           <div className="flex items-center space-x-2">
             <Link
-              to="/dashboard"
+              to="/admin/dashboard"
               className={linkClasses("/dashboard")}
               onClick={() => setSelected("/dashboard")}
             >
               <FaChartLine className="mr-2" />
               Dashboard
             </Link>
+
             <Link
-              to="/entrepreneurs"
+              to="/admin/profile"
+              className={linkClasses("/investments")}
+              onClick={() => setSelected("/investments")}
+            >
+              <MdAssessment className="mr-2" />
+              Profile
+            </Link>
+
+            <Link
+              to="admin/list_entrepreneurs"
               className={linkClasses("/entrepreneurs")}
               onClick={() => setSelected("/entrepreneurs")}
             >
@@ -63,7 +74,7 @@ export default function AdminNavbar() {
               Entrepreneurs
             </Link>
             <Link
-              to="/sharks"
+              to="/admin/list_sharks"
               className={linkClasses("/sharks")}
               onClick={() => setSelected("/sharks")}
             >
@@ -71,29 +82,14 @@ export default function AdminNavbar() {
               Sharks
             </Link>
             <Link
-              to="/businesses"
+              to="/admin/list_business"
               className={linkClasses("/businesses")}
               onClick={() => setSelected("/businesses")}
             >
               <FaBusinessTime className="mr-2" />
               Businesses
             </Link>
-            <Link
-              to="/investments"
-              className={linkClasses("/investments")}
-              onClick={() => setSelected("/investments")}
-            >
-              <MdAssessment className="mr-2" />
-              Investments
-            </Link>
-            <Link
-              to="/reports"
-              className={linkClasses("/reports")}
-              onClick={() => setSelected("/reports")}
-            >
-              <FaChartLine className="mr-2" />
-              Report & Analysis
-            </Link>
+
             <div className="ml-4">
               <Link to="/login">
                 <button

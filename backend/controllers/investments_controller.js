@@ -17,7 +17,8 @@ const investments_controller = {
       res.send({ message: "login session is expired , please login again" });
     }
 
-    const { amount, equity, royalty, royalty_duration } = req.body;
+    const { amount, equity, company_evaluation, royalty, royalty_duration } =
+      req.body;
     const business_id = req.params.id;
     const business_exist = await Business.findById(business_id);
 
@@ -37,6 +38,7 @@ const investments_controller = {
           shark_name: shark.name,
           amount,
           equity,
+          company_evaluation,
           royalty,
           royalty_duration,
           accepted: false,
@@ -169,6 +171,18 @@ const investments_controller = {
       business_id: new ObjectID(business_id),
     });
     res.json(newInvestment);
+  }),
+  list_sharksInvestments: asyncHandler(async (req, res) => {
+    if (!req.user) {
+      res.send({ message: "login session is expired , please login again" });
+    }
+    const shark_id = req.user;
+    const business_id = req.params.id;
+    const investments = await Investment.find({
+      shark_id: new ObjectID(shark_id),
+      business_id: new ObjectID(business_id),
+    });
+    res.json(investments);
   }),
 };
 
