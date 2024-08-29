@@ -129,3 +129,33 @@ export const sharkProfileUpdateAPI = async ({
 
   return response.data;
 };
+
+export const ListVerifiedSharkAPI = async () => {
+  const token = getUser();
+  const response = await axios.get(
+    "http://localhost:3000/api/v1/shark/list_verified",
+
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+  //return the promice
+  return response.data;
+};
+
+export const ListUnverifiedSharkAPI = async () => {
+  const token = getUser();
+  const response = await axios.get(
+    "http://localhost:3000/api/v1/shark/list_unverified",
+
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+  //return the promice
+  return response.data;
+};

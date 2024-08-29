@@ -39,9 +39,14 @@ shark_Router.get(
   isAuthenticated,
   shark_controller.profile
 );
-shark_Router.get("/api/v1/shark/list_verified", shark_controller.list_verified);
+shark_Router.get(
+  "/api/v1/shark/list_verified",
+  isAuthenticated,
+  shark_controller.list_verified
+);
 shark_Router.get(
   "/api/v1/shark/list_unverified",
+  isAuthenticated,
   shark_controller.list_unverified
 );
 module.exports = shark_Router;

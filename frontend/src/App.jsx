@@ -21,6 +21,11 @@ import SharkProfileUpdate from "./components/Users/Shark/SharkProfileUpdate";
 import SharkBusiness from "./components/Users/Shark/SharkBusiness";
 import AddInvestment from "./components/Users/Shark/AddInvestment";
 import SharkInvestment from "./components/Users/Shark/SharkInvestments";
+import SharkSupport from "./components/Users/Shark/SharkSupport";
+import AdminProfile from "./components/Users/Admin/AdminProfile";
+import AdminEntrepreneur from "./components/Users/Admin/AdminEntrepreneur";
+import AdminShark from "./components/Users/Admin/AdminShark";
+import AdminBusiness from "./components/Users/Admin/Adminbusiness";
 
 function App() {
   const userType = useSelector((state) => state.auth.userType);
@@ -88,6 +93,14 @@ function App() {
           <Route path="/shark/business" element={<SharkBusiness />} />
           <Route path="/shark/addInvestment" element={<AddInvestment />} />
           <Route path="/shark/investments" element={<SharkInvestment />} />
+          <Route path="shark/support" element={<SharkSupport />} />
+          <Route path="admin/profile" element={<AdminProfile />} />
+          <Route
+            path="admin/list_entrepreneurs"
+            element={<AdminEntrepreneur />}
+          />
+          <Route path="admin/list_sharks" element={<AdminShark />} />
+          <Route path="admin/list_business" element={<AdminBusiness />} />
         </Routes>
       </BrowserRouter>
     </>

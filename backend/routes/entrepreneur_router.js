@@ -23,10 +23,12 @@ entrepreneur_Router.delete(
 );
 entrepreneur_Router.get(
   "/api/v1/entrepreneur/list_unverified",
+  isAuthenticated,
   entrepreneur_controller.list_unverified
 );
 entrepreneur_Router.get(
   "/api/v1/entrepreneur/list_verified",
+  isAuthenticated,
   entrepreneur_controller.list_verified
 );
 entrepreneur_Router.get(

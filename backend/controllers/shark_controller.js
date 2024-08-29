@@ -197,10 +197,16 @@ const shark_controller = {
   }),
 
   list_verified: asyncHandler(async (req, res) => {
+    if (!req.user) {
+      res.send({ message: "login session is expired , please login again" });
+    }
     const sharks = await Shark.find({ verified: true });
     res.json(sharks);
   }),
   list_unverified: asyncHandler(async (req, res) => {
+    if (!req.user) {
+      res.send({ message: "login session is expired , please login again" });
+    }
     const sharks = await Shark.find({ verified: false });
     res.json(sharks);
   }),

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
-  VerifiedBusinessAPI,
+  ListVerifiedBusinessAPI,
   BusinessEquityAPI,
 } from "../../../services/business/BusinessServices";
 import { FaArrowRight } from "react-icons/fa";
@@ -33,7 +33,7 @@ export default function SharkBusiness() {
   const [selectedBusinessId, setSelectedBusinessId] = useState(null);
   const [selectedBusiness, setSelectedBusiness] = useState(null);
   const { data, isError, isPending, isSuccess } = useQuery({
-    queryFn: VerifiedBusinessAPI,
+    queryFn: ListVerifiedBusinessAPI,
     queryKey: ["verified-business-list"],
   });
 

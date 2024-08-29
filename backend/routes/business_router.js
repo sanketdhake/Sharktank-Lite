@@ -43,11 +43,13 @@ business_Router.delete(
 );
 business_Router.get(
   "/api/v1/business/list_verified",
+  isAuthenticated,
   business_controller.list_verified
 );
 business_Router.get(
-  "/api/v1/business/list_not_verified",
-  business_controller.list_not_verified
+  "/api/v1/business/list_unverified",
+  isAuthenticated,
+  business_controller.list_unverified
 );
 business_Router.get(
   "/api/v1/business/get_equity/:id",

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { SharksInvestmentAPI } from "../../../services/investments/InvestmentServices";
-import { VerifiedBusinessAPI } from "../../../services/business/BusinessServices";
+import { ListVerifiedBusinessAPI } from "../../../services/business/BusinessServices";
 
 export default function SharkInvestment() {
   const [selectedBusiness, setSelectedBusiness] = useState(null);
   const [selectedBusinessId, setSelectedBusinessId] = useState(null);
 
   const { data, isError, isLoading } = useQuery({
-    queryFn: VerifiedBusinessAPI,
+    queryFn: ListVerifiedBusinessAPI,
     queryKey: ["verified-business-list"],
   });
 

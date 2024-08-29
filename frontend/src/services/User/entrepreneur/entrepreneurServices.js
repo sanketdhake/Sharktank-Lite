@@ -123,3 +123,33 @@ export const EntrepreneurProfileUpdateAPI = async ({
   //return the promice
   return response.data;
 };
+
+export const ListVerifiedEntrepreneurAPI = async () => {
+  const token = getUser();
+  const response = await axios.get(
+    "http://localhost:3000/api/v1/entrepreneur/list_verified",
+
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+  //return the promice
+  return response.data;
+};
+
+export const ListUnverifiedEntrepreneurAPI = async () => {
+  const token = getUser();
+  const response = await axios.get(
+    "http://localhost:3000/api/v1/entrepreneur/list_unverified",
+
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+  //return the promice
+  return response.data;
+};
